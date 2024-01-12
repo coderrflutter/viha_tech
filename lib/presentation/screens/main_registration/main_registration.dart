@@ -9,6 +9,15 @@ class MainRegistration extends StatefulWidget {
 }
 
 class _MainRegistrationState extends State<MainRegistration> {
+  late MainRegistrationViewModel mainRegistrationViewModel;
+
+  @override
+  void initState() {
+    mainRegistrationViewModel =
+        MainRegistrationViewModel(repository: context.read<Repository>());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,23 +96,45 @@ class _MainRegistrationState extends State<MainRegistration> {
                     ),
                     30.heightBox,
                     TextField(
-                      style: TextStyle(
-                          color: Colors.black), // Change the input text color
+                      style: TextStyle(color: Colors.black),
+                      //controller: _controller,
                       decoration: InputDecoration(
                         hintText: "Select Your Profile",
                         hintStyle: TextStyle(
-                          color:
-                              Color(0xFFD4DAE6), // Change the hint text color
+                          color: Color(0xFFD4DAE6),
                         ),
                         focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color(
-                                  0xFFD4DAE6)), // Change the underline color when focused
+                          borderSide: BorderSide(color: Color(0xFFD4DAE6)),
                         ),
                         enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color(
-                                  0xFFD4DAE6)), // Change the default underline color
+                          borderSide: BorderSide(color: Color(0xFFD4DAE6)),
+                        ),
+                        suffixIcon: PopupMenuButton<String>(
+                          onSelected: (value) {
+                            setState(() {
+                              //   _controller.text = value;
+                            });
+                          },
+                          itemBuilder: (BuildContext context) {
+                            return [
+                              PopupMenuItem<String>(
+                                value: 'Option 1',
+                                child: Text('Option 1'),
+                              ),
+                              PopupMenuItem<String>(
+                                value: 'Option 2',
+                                child: Text('Option 2'),
+                              ),
+                              PopupMenuItem<String>(
+                                value: 'Option 3',
+                                child: Text('Option 3'),
+                              ),
+                            ];
+                          },
+                          child: Icon(
+                            Icons.arrow_drop_down,
+                            color: Color(0xFFD4DAE6),
+                          ),
                         ),
                       ),
                     ),
